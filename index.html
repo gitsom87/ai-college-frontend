@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI College Predictor</title>
+</head>
+<body>
+    <h2>AI College Predictor</h2>
+
+    <input type="number" id="value" placeholder="Enter value" />
+    <button onclick="predict()">Predict</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        async function predict() {
+            const value = document.getElementById("value").value;
+
+            const response = await fetch("/api/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ value: parseFloat(value) })
+            });
+
+            const data = await response.json();
+            document.getElementById("result").innerText =
+                "Prediction: " + data.prediction;
+        }
+    </script>
+</body>
+</html>

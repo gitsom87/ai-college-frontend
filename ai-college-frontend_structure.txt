@@ -1,0 +1,35 @@
+ai-college-frontend/
+│
+├── public/                  # Static assets
+│
+├── src/
+│   ├── api/                 # All API calls (Axios services)
+│   │   └── collegeApi.ts
+│   │
+│   ├── components/          # Reusable UI components
+│   │   ├── common/          # Buttons, loaders, etc.
+│   │   └── grid/
+│   │       └── CollegeRankGrid.tsx
+│   │
+│   ├── pages/               # Page-level components
+│   │   └── Home.tsx
+│   │
+│   ├── models/              # TypeScript interfaces/types
+│   │   └── Rank.ts
+│   │
+│   ├── hooks/               # Custom React hooks
+│   │   └── useCollegeRanks.ts
+│   │
+│   ├── utils/               # Helper functions
+│   │   └── format.ts
+│   │
+│   ├── config/              # App configuration
+│   │   └── axios.ts
+│   │
+│   ├── App.tsx              # Root component
+│   ├── main.tsx             # Entry point
+│   └── index.css
+│
+├── package.json
+├── tsconfig.json
+├── Dockerfile
