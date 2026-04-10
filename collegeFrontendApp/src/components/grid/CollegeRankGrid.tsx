@@ -1,39 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-interface Rank {
-  id: number;
-  quota: string;
-  category: string;
-  rank: number;
-}
-
-export default function CollegeRankGrid() {
-  const [rows, setRows] = useState<Rank[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("http://ai-college.local:8080/api/college/ranks?college=901637")
-      .then((res) => {
-        const mapped = res.data.map((item: any, index: number) => ({
-            id: index,
-            quota: item.quota,    
-            category: item.category,
-            minRank: item.minRank,
-            maxRank: item.maxRank
-        }));
-        setRows(mapped);
-      })
-      .catch((err) => console.error("API Error:", err));
-  }, []);
-
-//   const columns: GridColDef[] = [
-//     { field: "quota", headerName: "Quota", width: 150 },
-//     { field: "category", headerName: "Category", width: 150 },
-//     { field: "rank", headerName: "Rank", width: 120 },
-//   ];
+import useCollegeRanks from "../../hooks/useCollegeRanks";
 
 const columns: GridColDef[] = [
   { field: "quota", headerName: "Quota", width: 180 },
@@ -42,9 +9,24 @@ const columns: GridColDef[] = [
   { field: "maxRank", headerName: "Max Rank", width: 120 },
 ];
 
+interface Props {
+  collegeId: string;
+}
+
+export default function CollegeRankGrid({ collegeId }: Props) {
+  const { rows, loading, error } = useCollegeRanks(collegeId);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+
   return (
-    <div style={{ height: 400 }}>
-      <DataGrid rows={rows} columns={columns} />
+    <div>
+      <p style={{ marginBottom: 8, color: "#555" }}>
+        Showing results for: <strong>{collegeId}</strong>
+      </p>
+      <div style={{ height: 400 }}>
+        <DataGrid rows={rows} columns={columns} />
+      </div>
     </div>
   );
 }

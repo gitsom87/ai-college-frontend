@@ -1,10 +1,9 @@
-import CollegeRankGrid from "./components/grid/CollegeRankGrid";
+import CollegeRanksPage from "./pages/CollegeRanksPage";
 
 function App() {
   return (
     <div>
-      <h1>College App</h1>
-      <CollegeRankGrid />
+      <CollegeRanksPage />
     </div>
   );
 }
